@@ -14,7 +14,7 @@
   },
   "include": [
     "src/**/*"
-, "vite.config.js"  ],
+, "../../vite.config.js"  ],
   "files": [
     "src/main.jsx"
   ]
