@@ -1,140 +1,67 @@
 // @ts-nocheck
-import React from "react";
-
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 
-const EMPTY_GRID = [
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-];
-
-const SOLUTION = [
-  ["A", "P", "P", "L", "E"],
-  ["", "B", "", "", ""],
-  ["", "L", "", "", ""],
-  ["", "U", "", "", ""],
-  ["R", "E", "L", "A", "X"],
-];
-
 export default function Crossword() {
-  const [grid, setGrid] = useState(EMPTY_GRID);
+  const [answers, setAnswers] = useState({
+    relax: "",
+    sky: "",
+    fruit: "",
+  });
 
-  // 🔥 THIS FIXES AUTO‑RESET
-  useEffect(() => {
-    setGrid(EMPTY_GRID);
-  }, []);
-
-  const handleChange = (r, c, value) => {
-    if (!/^[A-Za-z]?$/.test(value)) return;
-    const copy = grid.map(row => [...row]);
-    copy[r][c] = value.toUpperCase();
-    setGrid(copy);
-  };
-
-  const checkAnswers = () => {
-    const correct =
-      JSON.stringify(grid) === JSON.stringify(SOLUTION);
-    alert(correct ? "🎉 Correct!" : "❌ Try again");
-  };
-
-  const resetCrossword = () => {
-    setGrid(EMPTY_GRID);
+  const check = () => {
+    if (
+      answers.relax.toLowerCase() === "relax" &&
+      answers.sky.toLowerCase() === "blue" &&
+      answers.fruit.toLowerCase() === "apple"
+    ) {
+      alert("🎉 All correct!");
+    } else {
+      alert("❌ Try again");
+    }
   };
 
   return (
     <Layout>
-      <h2 style={{ color: "#2d6a4f" }}>✏️ Easy Crossword</h2>
+      <h2>✏️ Easy Crossword</h2>
 
-      <div style={board}>
-        {grid.map((row, r) =>
-          row.map((cell, c) => {
-            const isBlocked = SOLUTION[r][c] === "";
-            return (
-              <input
-                key={`${r}-${c}`}
-                value={cell}
-                disabled={isBlocked}
-                onChange={(e) =>
-                  handleChange(r, c, e.target.value)
-                }
-                style={{
-                  ...box,
-                  backgroundColor: isBlocked ? "#ccc" : "white",
-                }}
-              />
-            );
-          })
-        )}
-      </div>
+      <p>1. Opposite of stress</p>
+      <input
+        value={answers.relax}
+        onChange={(e) =>
+          setAnswers({ ...answers, relax: e.target.value })
+        }
+      />
 
-      <div style={clues}>
-        <b>Across</b>
-        <p>1. A red fruit (5)</p>
-        <p>3. Opposite of stress (5)</p>
+      <p>2. Color of the sky</p>
+      <input
+        value={answers.sky}
+        onChange={(e) =>
+          setAnswers({ ...answers, sky: e.target.value })
+        }
+      />
 
-        <b>Down</b>
-        <p>2. Color of the sky (4)</p>
-      </div>
+      <p>3. A red fruit</p>
+      <input
+        value={answers.fruit}
+        onChange={(e) =>
+          setAnswers({ ...answers, fruit: e.target.value })
+        }
+      />
 
-      <div style={btnRow}>
-        <button style={btn} onClick={checkAnswers}>
-          Check Answers
-        </button>
-        <button style={resetBtn} onClick={resetCrossword}>
-          Reset
-        </button>
-      </div>
+      <br />
+      <button style={btn} onClick={check}>
+        Check Answers
+      </button>
     </Layout>
   );
 }
 
-/* ---------- STYLES ---------- */
-
-const board = {
-  display: "grid",
-  gridTemplateColumns: "repeat(5, 50px)",
-  gap: "6px",
-  marginTop: "20px",
-};
-
-const box = {
-  width: "50px",
-  height: "50px",
-  textAlign: "center",
-  fontSize: "18px",
-  fontWeight: "600",
-  border: "1px solid #333",
-};
-
-const clues = {
-  marginTop: "20px",
-  fontSize: "14px",
-};
-
-const btnRow = {
-  display: "flex",
-  gap: "12px",
-  marginTop: "20px",
-};
-
 const btn = {
-  padding: "10px 18px",
+  marginTop: "20px",
+  padding: "10px",
   background: "#2d6a4f",
   color: "white",
   border: "none",
   borderRadius: "8px",
-  cursor: "pointer",
-};
-
-const resetBtn = {
-  padding: "10px 18px",
-  background: "#adb5bd",
-  color: "#333",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
 };

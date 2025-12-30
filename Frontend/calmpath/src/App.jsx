@@ -11,6 +11,8 @@ import MoodTracker from "./pages/moodtracker.jsx";
 import MoodHistory from "./pages/moodhistory.jsx";
 import Journal from "./pages/journal.jsx";
 import Profile from "./pages/profile.jsx";
+
+/* GAMES */
 import MindGames from "./pages/mindgames.jsx";
 import Sudoku from "./pages/sudoku.jsx";
 import MemoryGame from "./pages/memorygame.jsx";
@@ -31,10 +33,13 @@ export default function App() {
         <Route path="/history" element={<MoodHistory />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/mindgames" element={<MindGames />} />
-        <Route path="/sudoku" element={<Sudoku />} />
-        <Route path="/memory" element={<MemoryGame />} />
-        <Route path="/crossword" element={<Crossword />} />
+
+        {/* MIND GAMES (NESTED ROUTES) */}
+        <Route path="/mindgames" element={<MindGames />}>
+          <Route path="sudoku" element={<Sudoku />} />
+          <Route path="memory" element={<MemoryGame />} />
+          <Route path="crossword" element={<Crossword />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

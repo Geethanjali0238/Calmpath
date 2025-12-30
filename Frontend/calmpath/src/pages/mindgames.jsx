@@ -1,46 +1,20 @@
-// @ts-nocheck
 import React from "react";
-
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
+import { Link, Outlet } from "react-router-dom";
 
 export default function MindGames() {
-  const navigate = useNavigate();
-
   return (
-    <Layout>
-      <h2 style={{ color: "#2d6a4f" }}>🧠 Mind Games</h2>
-      <p>Choose a game to relax your mind</p>
+    <div style={{ padding: "20px" }}>
+      <h1>🧠 Mind Games</h1>
 
-      <div style={grid}>
-        <div style={card} onClick={() => navigate("/mindgames/sudoku")}>
-          🔢 Sudoku
-        </div>
-
-        <div style={card} onClick={() => navigate("/mindgames/memory")}>
-          🎯 Memory Game
-        </div>
-
-        <div style={card} onClick={() => navigate("/mindgames/crossword")}>
-          ✏️ Crossword
-        </div>
+      {/* GAME LINKS */}
+      <div style={{ marginBottom: "20px" }}>
+        <Link to="sudoku">Sudoku</Link> |{" "}
+        <Link to="memory">Memory Game</Link> |{" "}
+        <Link to="crossword">Crossword</Link>
       </div>
-    </Layout>
+
+      {/* THIS IS MANDATORY */}
+      <Outlet />
+    </div>
   );
 }
-
-const grid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-  gap: "20px",
-  marginTop: "30px",
-};
-
-const card = {
-  background: "#f4f9f6",
-  padding: "25px",
-  borderRadius: "14px",
-  textAlign: "center",
-  fontWeight: "600",
-  cursor: "pointer",
-};
