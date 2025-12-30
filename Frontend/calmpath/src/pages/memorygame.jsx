@@ -1,103 +1,72 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
+
+// @ts-nocheck
+import { useState } from "react";
 import Layout from "../components/Layout";
 
-const symbols = ["🍎", "🍌", "🍇", "🍉", "🥝", "🍓"];
+const cards = ["🍎", "🍌", "🍇", "🍉"];
 
 export default function MemoryGame() {
-  const [cards, setCards] = useState([]);
-  const [flipped, setFlipped] = useState([]);
+  const shuffled = [...cards, ...cards].sort(() => Math.random() - 0.5);
+
+  const [opened, setOpened] = useState([]);
   const [matched, setMatched] = useState([]);
 
-  // create & shuffle cards ONCE
-  useEffect(() => {
-    const shuffled = [...symbols, ...symbols]
-      .map((symbol) => ({ symbol, id: Math.random() }))
-      .sort(() => Math.random() - 0.5);
+  const handleClick = (index) => {
+    if (opened.length === 2 || opened.includes(index)) return;
 
-    setCards(shuffled);
-  }, []);
+    const newOpened = [...opened, index];
+    setOpened(newOpened);
 
-  const handleFlip = (index) => {
-    if (
-      flipped.length === 2 ||
-      flipped.includes(index) ||
-      matched.includes(cards[index].symbol)
-    ) {
-      return;
-    }
-
-    const newFlipped = [...flipped, index];
-    setFlipped(newFlipped);
-
-    if (newFlipped.length === 2) {
-      const [i1, i2] = newFlipped;
-
-      if (cards[i1].symbol === cards[i2].symbol) {
-        setMatched([...matched, cards[i1].symbol]);
+    if (newOpened.length === 2) {
+      const [i1, i2] = newOpened;
+      if (shuffled[i1] === shuffled[i2]) {
+        setMatched([...matched, shuffled[i1]]);
       }
-
-      setTimeout(() => setFlipped([]), 800);
+      setTimeout(() => setOpened([]), 800);
     }
   };
 
   return (
     <Layout>
-      <h2 style={{ color: "#2d6a4f" }}>🎯 Memory Game</h2>
-      <p>Flip two cards and find matching pairs</p>
+      <h2>🎯 Memory Game</h2>
 
       <div style={grid}>
-        {cards.map((card, index) => {
-          const isOpen =
-            flipped.includes(index) ||
-            matched.includes(card.symbol);
-
+        {shuffled.map((card, i) => {
+          const show =
+            opened.includes(i) || matched.includes(card);
           return (
             <div
-              key={card.id}
-              style={{
-                ...cardStyle,
-                background: isOpen ? "#2d6a4f" : "#95d5b2",
-              }}
-              onClick={() => handleFlip(index)}
+              key={i}
+              style={cardStyle}
+              onClick={() => handleClick(i)}
             >
-              {isOpen ? card.symbol : "❓"}
+              {show ? card : "❓"}
             </div>
           );
         })}
       </div>
-
-      {matched.length === symbols.length && (
-        <p style={win}>🎉 You matched all cards!</p>
-      )}
     </Layout>
   );
 }
 
-/* ---------- STYLES ---------- */
-
 const grid = {
   display: "grid",
-  gridTemplateColumns: "repeat(4, 70px)",
-  gap: "15px",
-  marginTop: "30px",
+  gridTemplateColumns: "repeat(4, 60px)",
+  gap: "10px",
+  marginTop: "20px",
 };
 
 const cardStyle = {
-  width: "70px",
-  height: "70px",
-  borderRadius: "12px",
+  width: "60px",
+  height: "60px",
+  background: "#2d6a4f",
+  color: "white",
+  fontSize: "24px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  fontSize: "28px",
+  borderRadius: "8px",
   cursor: "pointer",
-  color: "white",
-  userSelect: "none",
-};
-
-const win = {
-  marginTop: "20px",
-  color: "#2d6a4f",
-  fontWeight: "600",
 };
