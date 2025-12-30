@@ -1,4 +1,6 @@
 // @ts-nocheck
+import React from "react";
+
 export default function PaymentModal({ onSuccess, onClose }) {
   return (
     <div style={overlay}>

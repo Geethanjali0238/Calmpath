@@ -1,3 +1,6 @@
+// @ts-nocheck
+import React from "react";
+
 export default function TherapistCard({ therapist, onBook }) {
   return (
     <div style={card}>
