@@ -1,44 +1,43 @@
-// @ts-nocheck
-import React, { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Layout from "../components/Layout";
 
+import MemoryGame from "../games/MemoryGame";
+import Sudoku from "../games/Sudoku";
+import Crossword from "../games/Crossword";
+
+/** @typedef {"memory" | "sudoku" | "crossword" | null} GameType */
+
 export default function MindGames() {
-  const navigate = useNavigate();
+  /** @type {[GameType, Function]} */
+  const [activeGame, setActiveGame] = useState(null);
 
   return (
     <Layout>
-      <h2 style={{ color: "#2d6a4f" }}>🧠 Mind Games</h2>
-      <p>Choose a game to relax your mind</p>
+      <div className="game-container">
+        {!activeGame && (
+          <div style={{ display: "flex", gap: "20px" }}>
+            <div className="game-card" onClick={() => setActiveGame("memory")}>
+              Memory Game
+            </div>
+            <div className="game-card" onClick={() => setActiveGame("sudoku")}>
+              Sudoku
+            </div>
+            <div className="game-card" onClick={() => setActiveGame("crossword")}>
+              Crossword
+            </div>
+          </div>
+        )}
 
-      <div style={grid}>
-        <div style={card} onClick={() => navigate("/mindgames/sudoku")}>
-          🔢 Sudoku
-        </div>
-
-        <div style={card} onClick={() => navigate("/mindgames/memory")}>
-          🎯 Memory Game
-        </div>
-
-        <div style={card} onClick={() => navigate("/mindgames/crossword")}>
-          ✏️ Crossword
-        </div>
+        {activeGame === "memory" && (
+          <MemoryGame onBack={() => setActiveGame(null)} />
+        )}
+        {activeGame === "sudoku" && (
+          <Sudoku onBack={() => setActiveGame(null)} />
+        )}
+        {activeGame === "crossword" && (
+          <Crossword onBack={() => setActiveGame(null)} />
+        )}
       </div>
     </Layout>
   );
 }
-
-const grid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-  gap: "20px",
-  marginTop: "30px",
-};
-
-const card = {
-  background: "#f4f9f6",
-  padding: "25px",
-  borderRadius: "14px",
-  textAlign: "center",
-  fontWeight: "600",
-  cursor: "pointer",
-};
