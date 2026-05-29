@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>My Profile</h2>
+  <p id="name"></p>
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+document.getElementById("name").innerText = user.name;
+</script>

@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Journal</h2>
+  <textarea id="text"></textarea>
+  <button onclick="saveJournal()">Save</button>
+</div>
+<script src="js/journal.js"></script>
+
+const API = "http://localhost:3000/api";
+
+function saveJournal() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  fetch(`${API}/journal/save`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId: user.id,
+      text: text.value
+    })
+  }).then(() => alert("Journal saved 📓"));
+}

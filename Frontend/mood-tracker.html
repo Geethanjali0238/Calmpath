@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .question {
+      margin-bottom: 20px;
+    }
+    .stars span {
+      font-size: 26px;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.active {
+      color: #f4c430;
+    }
+    .emoji span {
+      font-size: 30px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .emoji span.active {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h2>Mood Tracker 🌿</h2>
+
+  <div class="question">
+    <p>1. Stress Level</p>
+    <div class="stars" data-id="stress"></div>
+  </div>
+
+  <div class="question">
+    <p>2. Sleep Quality</p>
+    <div class="stars" data-id="sleep"></div>
+  </div>
+
+  <div class="question">
+    <p>3. Energy Level</p>
+    <div class="stars" data-id="energy"></div>
+  </div>
+
+  <div class="question">
+    <p>4. Focus Level</p>
+    <div class="stars" data-id="focus"></div>
+  </div>
+
+  <div class="question">
+    <p>5. Overall Mood</p>
+    <div class="emoji" id="emoji">
+      <span>😢</span>
+      <span>😐</span>
+      <span>😊</span>
+      <span>😁</span>
+      <span>🤩</span>
+    </div>
+  </div>
+
+  <button onclick="saveMood()">Save</button>
+</div>
+
+<script src="js/mood.js"></script>
+</body>
+</html>

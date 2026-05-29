@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CalmPath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth">
+  <h1>CalmPath 🌿</h1>
+  <input id="name" placeholder="Name">
+  <input id="password" type="password" placeholder="Password">
+  <textarea id="about" placeholder="Tell about yourself (optional)"></textarea>
+  <button onclick="login()">Login / Sign Up</button>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+  <!-- SIDEBAR -->
+  <nav>
+    <h2>CalmPath</h2>
+    <button onclick="show('home')">Home</button>
+    <button onclick="show('tracker')">Mood Tracker</button>
+    <button onclick="show('history')">Mood History</button>
+    <button onclick="show('journal')">Journal</button>
+    <button onclick="show('games')">Games</button>
+    <button onclick="show('profile')">My Profile</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HOME -->
+    <section id="home">
+      <h2>Therapists</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Dr. Ananya</h3>
+          <p>Clinical Psychologist</p>
+          <p>Slots: 4–6 PM</p>
+          <button>Book Session</button>
+        </div>
+        <div class="card">
+          <h3>Dr. Ravi</h3>
+          <p>Therapist</p>
+          <p>Slots: 6–9 PM</p>
+          <button>Book Session</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOOD TRACKER -->
+    <section id="tracker" class="hidden">
+      <h2>Mood Tracker</h2>
+
+      <label>Stress (1–5)</label>
+      <input type="range" min="1" max="5" id="stress">
+
+      <label>Sleep Quality (1–5)</label>
+      <input type="range" min="1" max="5" id="sleep">
+
+      <label>Energy (1–5)</label>
+      <input type="range" min="1" max="5" id="energy">
+
+      <label>Focus (1–5)</label>
+      <input type="range" min="1" max="5" id="focus">
+
+      <label>Overall Mood</label>
+      <select id="emoji">
+        <option>😊</option>
+        <option>😐</option>
+        <option>😢</option>
+        <option>😡</option>
+        <option>😴</option>
+      </select>
+
+      <button onclick="saveMood()">Save</button>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="hidden">
+      <h2>Mood History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th><th>Stress</th><th>Sleep</th><th>Energy</th><th>Focus</th><th>Mood</th>
+          </tr>
+        </thead>
+        <tbody id="historyTable"></tbody>
+      </table>
+    </section>
+
+    <!-- JOURNAL -->
+    <section id="journal" class="hidden">
+      <h2>Journal</h2>
+      <textarea id="journalText" placeholder="Write about your day..."></textarea>
+      <button onclick="saveJournal()">Save Entry</button>
+      <ul id="journalList"></ul>
+    </section>
+
+    <!-- GAMES -->
+    <section id="games" class="hidden">
+      <h2>Relaxation Games</h2>
+      <p>🧩 Sudoku – Coming Soon</p>
+      <p>🃏 Memory Match – Coming Soon</p>
+      <p>🔤 Crossword – Coming Soon</p>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="hidden">
+      <h2 id="username"></h2>
+      <p>Sessions Completed: 0</p>
+      <p>Subscription: Free</p>
+      <button>Download Reports</button>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

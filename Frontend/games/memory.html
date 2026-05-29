@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Memory Game</h2>
+  <div id="game"></div>
+</div>
+
+<script>
+const cards = ["🌸","🌸","🍀","🍀","🌙","🌙"];
+cards.sort(() => Math.random() - 0.5);
+let first = null;
+
+cards.forEach(c => {
+  const btn = document.createElement("button");
+  btn.textContent = "❓";
+  btn.onclick = () => {
+    btn.textContent = c;
+    if (!first) first = btn;
+    else {
+      if (first.textContent !== btn.textContent) {
+        setTimeout(() => {
+          first.textContent = "❓";
+          btn.textContent = "❓";
+        }, 600);
+      }
+      first = null;
+    }
+  };
+  game.appendChild(btn);
+});
+</script>
+</body>
+</html>
