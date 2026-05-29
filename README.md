@@ -30,5 +30,4 @@ Achievements
 
 
 
-📧 geethanjali0238@gmail.com
-🔗 [GitHub](https://github.com/Geethanjali0238)
+
